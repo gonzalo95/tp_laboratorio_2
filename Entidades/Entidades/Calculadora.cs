@@ -8,5 +8,36 @@ namespace Entidades
 {
     class Calculadora
     {
+        private static string ValidarOperador(string operador)
+        {
+            List<string> operadoresValidos = new List<string>() {"+", "-", "*", "/"};
+            return operadoresValidos.Contains(operador) ? operador : "+";
+        }
+
+        public static double Operar(Numero num1, Numero num2, string operador)
+        {
+            double resultado = 0;
+
+            switch (ValidarOperador(operador))
+            {
+                case "+":
+                    resultado = num1 + num2;
+                    break;
+
+                case "-":
+                    resultado = num1 - num2;
+                    break;
+
+                case "*":
+                    resultado = num1 * num2;
+                    break;
+
+                case "/":
+                    resultado = num1 / num2;
+                    break;
+            }
+
+            return resultado;
+        }
     }
 }
