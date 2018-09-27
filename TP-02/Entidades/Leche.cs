@@ -25,6 +25,13 @@ namespace Entidades_2018
             this.tipo = ETipo.Entera;
         }
 
+        /// <summary>
+        /// Sobrecarga del constructor. Recibe el tipo.
+        /// </summary>
+        /// <param name="marca"></param>
+        /// <param name="patente"></param>
+        /// <param name="color"></param>
+        /// <param name="tipo"></param>
         public Leche(EMarca marca, string patente, ConsoleColor color, ETipo tipo)
             :base(patente, marca, color)
         {
@@ -34,7 +41,7 @@ namespace Entidades_2018
         /// <summary>
         /// Las leches tienen 20 calorías
         /// </summary>
-        public override short CantidadCalorias
+        protected override short CantidadCalorias
         {
             get
             {
@@ -42,6 +49,10 @@ namespace Entidades_2018
             }
         }
 
+        /// <summary>
+        /// Expone todos los datos del elemento.
+        /// </summary>
+        /// <returns></returns>
         public override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();

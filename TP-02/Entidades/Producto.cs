@@ -15,12 +15,18 @@ namespace Entidades_2018
         {
             Serenisima, Campagnola, Arcor, Ilolay, Sancor, Pepsico
         }
+
         EMarca marca;
         string codigoDeBarras;
         ConsoleColor colorPrimarioEmpaque;
-        //short cantidadCalorias;
 
-        protected Producto(string patente, EMarca marca, ConsoleColor color)
+        /// <summary>
+        /// Constructor de la clase.
+        /// </summary>
+        /// <param name="patente"></param>
+        /// <param name="marca"></param>
+        /// <param name="color"></param>
+        public Producto(string patente, EMarca marca, ConsoleColor color)
         {
             this.codigoDeBarras = patente;
             this.marca = marca;
@@ -30,7 +36,7 @@ namespace Entidades_2018
         /// <summary>
         /// ReadOnly: Retornará la cantidad de ruedas del vehículo
         /// </summary>
-        public abstract short CantidadCalorias {get;}
+        protected abstract short CantidadCalorias {get;}
 
         /// <summary>
         /// Publica todos los datos del Producto.
@@ -41,6 +47,10 @@ namespace Entidades_2018
             return (string)this;
         }
 
+        /// <summary>
+        /// Expone todos los datos del elemento.
+        /// </summary>
+        /// <param name="p"></param>
         public static explicit operator string(Producto p)
         {
             StringBuilder sb = new StringBuilder();
@@ -61,7 +71,7 @@ namespace Entidades_2018
         /// <returns></returns>
         public static bool operator ==(Producto p1, Producto p2)
         {
-            return (p1.codigoDeBarras == p2.codigoDeBarras);
+            return p1.codigoDeBarras == p2.codigoDeBarras;
         }
         /// <summary>
         /// Dos productos son distintos si su código de barras es distinto

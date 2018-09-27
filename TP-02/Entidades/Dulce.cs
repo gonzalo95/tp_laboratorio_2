@@ -8,6 +8,12 @@ namespace Entidades_2018
 {
     public class Dulce : Producto
     {
+        /// <summary>
+        /// Constructor de la clase.
+        /// </summary>
+        /// <param name="marca"></param>
+        /// <param name="patente"></param>
+        /// <param name="color"></param>
         public Dulce(EMarca marca, string patente, ConsoleColor color) 
             : base(patente, marca, color)
         {
@@ -16,7 +22,7 @@ namespace Entidades_2018
         /// <summary>
         /// Los dulces tienen 80 calorías
         /// </summary>
-        public override short CantidadCalorias
+        protected override short CantidadCalorias
         {
             get
             {
@@ -24,6 +30,10 @@ namespace Entidades_2018
             }
         }
 
+        /// <summary>
+        /// Expone los datos del elemento. 
+        /// </summary>
+        /// <returns></returns>
         public override string Mostrar()
         {
             StringBuilder sb = new StringBuilder();

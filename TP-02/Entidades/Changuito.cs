@@ -19,10 +19,17 @@ namespace Entidades_2018
         }
 
         #region "Constructores"
+        /// <summary>
+        /// Constructor privado.Inicializa la lista de productos.
+        /// </summary>
         private Changuito()
         {
             this.productos = new List<Producto>();
         }
+        /// <summary>
+        /// Sobrecarga del constructor.
+        /// </summary>
+        /// <param name="espacioDisponible">Entero que representa el maximo de productos que se pueden guardar.</param>
         public Changuito(int espacioDisponible) : this()
         {
             this.espacioDisponible = espacioDisponible;
