@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntidadesAbstractas;
 
 namespace Entidades
 {
@@ -28,8 +29,8 @@ namespace Entidades
 
     private void _randomClases()
         {
-            this.clasesDelDia.Enqueue((Universidad.EClases)random.Next(0, 3));
-            this.clasesDelDia.Enqueue((Universidad.EClases)random.Next(0, 3));
+            this.clasesDelDia.Enqueue((Universidad.EClases)random.Next(0, 4));
+            this.clasesDelDia.Enqueue((Universidad.EClases)random.Next(0, 4));
         }
 
         protected override string ParticiparEnClase()
@@ -38,7 +39,7 @@ namespace Entidades
             salida.AppendLine("CLASES DEL DIA: ");
             foreach(Universidad.EClases clase in this.clasesDelDia)
             {
-                salida.Append(clase);
+                salida.AppendLine(clase.ToString());
             }
             return salida.ToString();
         }

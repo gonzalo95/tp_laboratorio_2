@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Excepciones;
 
-namespace Entidades
+namespace EntidadesAbstractas
 {
     public abstract class Persona
     {
@@ -100,8 +101,7 @@ namespace Entidades
         public override string ToString()
         {
             StringBuilder salida = new StringBuilder();
-            salida.AppendLine(string.Format("NOMBRE COMPLETO:{0}, {1} ", this.Apellido, this.Nombre));
-            salida.AppendLine("DNI: " + this.DNI);
+            salida.AppendLine(string.Format("NOMBRE COMPLETO: {0}, {1} ", this.Apellido, this.Nombre));
             salida.AppendLine("NACIONALIDAD: " + this.Nacionalidad);
             return salida.ToString();
         }
@@ -112,11 +112,11 @@ namespace Entidades
             {
                 case ENacionalidad.Argentino:
                     if (dato < 1 || dato > 89999999)
-                        throw new Exception();
+                        throw new NacionalidadInvalidaException();
                     break;
                 case ENacionalidad.Extranjero:
                     if (dato < 90000000 || dato > 99999999)
-                        throw new Exception();
+                        throw new NacionalidadInvalidaException();
                     break;
             }
             return dato;
@@ -128,12 +128,12 @@ namespace Entidades
             if (Int32.TryParse(dato, out dni))
                 return ValidarDni(nacionalidad, dni);
             else
-                throw new Exception();
+                throw new DniInvalidoException();
         }
 
         private string ValidaNombreApellido(string dato)
         {
-            return Regex.IsMatch("^[a-z A-Z]$", dato) ? dato : string.Empty;
+            return Regex.IsMatch(dato, "[a-z A-Z]") ? dato : string.Empty;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entidades
+namespace EntidadesAbstractas
 {
     public abstract class Universitario : Persona
     {
@@ -30,7 +30,7 @@ namespace Entidades
 
         public override bool Equals(object obj)
         {
-            return this.GetType() == obj.GetType() && this.legajo == ((Universitario)obj).legajo && this.DNI == ((Universitario)obj).DNI;
+            return this.GetType() == obj.GetType() && (this.legajo == ((Universitario)obj).legajo || this.DNI == ((Universitario)obj).DNI);
         }
 
         public static bool operator ==(Universitario pg1, Universitario pg2)

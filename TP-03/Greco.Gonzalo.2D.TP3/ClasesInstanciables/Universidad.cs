@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Excepciones;
+using Archivos;
 
 namespace Entidades
 {
@@ -32,7 +34,7 @@ namespace Entidades
             }
         }
 
-        public List<Jornada> Jornada
+        public List<Jornada> Jornadas
         {
             get
             {
@@ -60,15 +62,15 @@ namespace Entidades
         {
             get
             {
-                if (i >= 0 && i < this.Jornada.Count)
-                    return this.Jornada[i];
+                if (i >= 0 && i < this.Jornadas.Count)
+                    return this.Jornadas[i];
                 else
                     throw new IndexOutOfRangeException("Indice fuera de rango");
             }
             set
             {
-                if (i >= 0 && i < this.Jornada.Count)
-                    this.Jornada[i] = value;
+                if (i >= 0 && i < this.Jornadas.Count)
+                    this.Jornadas[i] = value;
                 else
                     throw new IndexOutOfRangeException("Indice fuera de rango");
             }
@@ -85,22 +87,22 @@ namespace Entidades
         private string MostrarDatos()
         {
             StringBuilder salida = new StringBuilder();
-            salida.AppendLine("Alumnos:");
-            foreach (Alumno a in this.Alumnos)
+            foreach (Jornada j in this.Jornadas)
             {
-                salida.Append(a.ToString());
-            }
-            salida.AppendLine("Jornadas:");
-            foreach (Jornada j in this.Jornada)
-            {
+                salida.AppendLine("JORNADA:");
                 salida.Append(j.ToString());
             }
-            salida.AppendLine("Profesores:");
-            foreach (Profesor p in this.Profesores)
-            {
-                salida.Append(p.ToString());
-            }
             return salida.ToString();
+        }
+
+        public static Profesor operator ==(Universidad u, EClases clase)
+        {
+            foreach(Profesor p in u.Profesores)
+            {
+                if(p == clase)
+                    return p;
+            }
+            throw new SinProfesorException();
         }
 
         public static bool operator ==(Universidad g, Alumno a)
@@ -141,9 +143,61 @@ namespace Entidades
             return !(g == i);
         }
 
+        public static Profesor operator !=(Universidad u, EClases clase)
+        {
+            foreach (Profesor p in u.Profesores)
+            {
+                if (p != clase)
+                    return p;
+            }
+            throw new SinProfesorException();
+        }
+
+        public static Universidad operator +(Universidad g, EClases clase)
+        {
+            Jornada j = new Jornada(clase, g == clase);
+            foreach (Alumno a in g.Alumnos)
+            {
+                if (a == clase)
+                    j.Alumnos.Add(a);
+            }
+            g.Jornadas.Add(j);
+            return g;
+        }
+
+        public static Universidad operator +(Universidad u, Alumno a)
+        {
+            if (u == a)
+                throw new AlumnoRepetidoException();
+            else
+                u.Alumnos.Add(a);
+            return u;
+        }
+
+        public static Universidad operator +(Universidad u, Profesor i)
+        {
+            if (u != i)
+                u.Profesores.Add(i);
+            return u;
+        }
+
         public override string ToString()
         {
             return this.MostrarDatos();
+        }
+
+        public static bool Guardar(Universidad uni)
+        {
+            Xml<Universidad> xml = new Xml<Universidad>();
+            return xml.Guardar(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Universidad.xml", uni);
+        }
+
+        public static Universidad Leer()
+        {
+            Universidad salida;
+            Xml<Universidad> xml = new Xml<Universidad>();
+            xml.Leer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Universidad.xml", out salida);
+            return salida;
         }
     }
 }

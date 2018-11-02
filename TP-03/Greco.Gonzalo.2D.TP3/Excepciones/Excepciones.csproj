@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8BE45359-C5EC-4285-99AD-0E74749E2E48}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Greco.Gonzalo._2D.TP3</RootNamespace>
-    <AssemblyName>Greco.Gonzalo.2D.TP3</AssemblyName>
+    <ProjectGuid>{BB7F2E2E-1745-45AC-995F-7E6834EC77D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Excepciones</RootNamespace>
+    <AssemblyName>Excepciones</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,29 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="AlumnoRepetidoException.cs" />
+    <Compile Include="ArchivosException.cs" />
+    <Compile Include="DniInvalidoException.cs" />
+    <Compile Include="NacionalidadInvalidaException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Archivos\Archivos.csproj">
-      <Project>{b85b4c19-7e3a-4bf6-9113-39a8bbd7e2f2}</Project>
-      <Name>Archivos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClasesInstanciables\ClasesInstanciables.csproj">
-      <Project>{a03a10d6-221a-4dd5-be4f-2164e027cd03}</Project>
-      <Name>ClasesInstanciables</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entidades\ClasesAbstractas.csproj">
-      <Project>{a581bfbc-fe40-4dba-b3e5-7789e5fcc988}</Project>
-      <Name>ClasesAbstractas</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Excepciones\Excepciones.csproj">
-      <Project>{bb7f2e2e-1745-45ac-995f-7e6834ec77d2}</Project>
-      <Name>Excepciones</Name>
-    </ProjectReference>
+    <Compile Include="SinProfesorException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

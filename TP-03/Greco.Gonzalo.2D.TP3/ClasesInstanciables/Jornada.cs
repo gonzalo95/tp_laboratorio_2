@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Archivos;
 
 namespace Entidades
 {
@@ -89,15 +90,29 @@ namespace Entidades
         public override string ToString()
         {
             StringBuilder salida = new StringBuilder();
-            salida.AppendLine("JORNADA:");
             salida.Append(string.Format("CLASE DE {0} POR ",  this.Clase));
             salida.Append(this.Instructor.ToString());
             salida.AppendLine("ALUMNOS:");
             foreach(Alumno a in this.Alumnos)
             {
-                salida.Append(a.ToString());
+                salida.AppendLine(a.ToString());
             }
+            salida.AppendLine("<------------------------------------------------>");
             return salida.ToString();
+        }
+
+        public static bool Guardar(Jornada jornada)
+        {
+            Texto txt = new Texto();
+            return txt.Guardar(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Jornada.txt", jornada.ToString());
+        }
+
+        public static string Leer()
+        {
+            string salida;
+            Texto txt = new Texto();
+            txt.Leer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Jornada.txt", out salida);
+            return salida;
         }
     }
 }

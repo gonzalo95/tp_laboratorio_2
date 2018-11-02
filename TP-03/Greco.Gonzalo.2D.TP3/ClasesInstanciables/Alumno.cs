@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntidadesAbstractas;
 
 namespace Entidades
 {
@@ -34,7 +35,7 @@ namespace Entidades
 
         protected override string ParticiparEnClase()
         {
-            return string.Format("TOMA CLASE DE ", this.claseQueToma);
+            return string.Format("TOMA CLASE DE {0}", this.claseQueToma);
         }
 
         public static bool operator ==(Alumno a, Universidad.EClases clase)
@@ -51,9 +52,8 @@ namespace Entidades
         {
             StringBuilder salida = new StringBuilder();
             salida.Append(base.MostrarDatos());
-            //salida.AppendLine("Clase: " + this.claseQueToma);
+            salida.AppendLine("ESTADO DE CUENTA: " + this.estadoCuenta);
             salida.AppendLine(this.ParticiparEnClase());
-            salida.AppendLine("Cuenta: " + this.estadoCuenta);
             return salida.ToString();
         }
 
