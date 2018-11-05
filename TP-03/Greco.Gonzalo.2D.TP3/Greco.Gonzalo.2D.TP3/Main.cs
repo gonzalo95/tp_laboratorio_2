@@ -8,7 +8,7 @@ using Excepciones;
 
 namespace TP3
 {
-    class Program
+    class TP3
     {
         static void Main(string[] args)
         {

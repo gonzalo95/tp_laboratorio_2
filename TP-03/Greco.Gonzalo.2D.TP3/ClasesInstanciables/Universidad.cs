@@ -22,6 +22,9 @@ namespace Entidades
         private List<Jornada> jornadas;
         private List<Profesor> profesores;
 
+        /// <summary>
+        /// Propiedad de lectura y escritura del campo alumnos.
+        /// </summary>
         public List<Alumno> Alumnos
         {
             get
@@ -34,6 +37,9 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Propiedad de lectura y escritura del campo jornadas.
+        /// </summary>
         public List<Jornada> Jornadas
         {
             get
@@ -46,7 +52,10 @@ namespace Entidades
             }
         }
 
-        public List<Profesor> Profesores
+        /// <summary>
+        /// Propiedad de lectura y escritura del campo profesores.
+        /// </summary>
+        public List<Profesor> Instructores
         {
             get
             {
@@ -58,6 +67,12 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Indexador del campo jornadas.
+        /// Permite manipular el campo jornadas mediante indices.
+        /// </summary>
+        /// <param name="i">Indice.</param>
+        /// <returns>Elemento en el indice i, de ser un indice invalido lanza IndexOutOfRangeException.</returns>
         public Jornada this[int i]
         {
             get
@@ -76,7 +91,10 @@ namespace Entidades
             }
         }
 
-
+        /// <summary>
+        /// Constructor sin parametros de la clase Universidad.
+        /// Inicializa todos los campos.
+        /// </summary>
         public Universidad()
         {
             this.alumnos = new List<Alumno>();
@@ -84,6 +102,10 @@ namespace Entidades
             this.profesores = new List<Profesor>();
         }
 
+        /// <summary>
+        /// Devuelve todos los datos de la universidad.
+        /// </summary>
+        /// <returns>String con todos los datos.</returns>
         private string MostrarDatos()
         {
             StringBuilder salida = new StringBuilder();
@@ -95,9 +117,15 @@ namespace Entidades
             return salida.ToString();
         }
 
+        /// <summary>
+        /// Operador que devuelve un profesor que pueda dar la clase.
+        /// </summary>
+        /// <param name="u">Universidad a comparar.</param>
+        /// <param name="clase">clase a comparar.</param>
+        /// <returns>Primer profesor valido, de no existir lanza SinProfesorException.</returns>
         public static Profesor operator ==(Universidad u, EClases clase)
         {
-            foreach(Profesor p in u.Profesores)
+            foreach(Profesor p in u.Instructores)
             {
                 if(p == clase)
                     return p;
@@ -105,6 +133,12 @@ namespace Entidades
             throw new SinProfesorException();
         }
 
+        /// <summary>
+        /// Operador que nos permite comparar una universidad con un alumno.
+        /// </summary>
+        /// <param name="g">Universidad a comparar.</param>
+        /// <param name="a">Alumno a comparar.</param>
+        /// <returns>True si el alumno pertenece a la universidad, false en caso contrario.</returns>
         public static bool operator ==(Universidad g, Alumno a)
         {
             bool salida = false;
@@ -119,10 +153,16 @@ namespace Entidades
             return salida;
         }
 
+        /// <summary>
+        /// Operador que nos permite comparar una universidad con un profesor.
+        /// </summary>
+        /// <param name="g">Universidad a comparar.</param>
+        /// <param name="i">Profesor a comparar.</param>
+        /// <returns>True si el profesor pertenece a la universidad, false en caso contrario.</returns>
         public static bool operator ==(Universidad g, Profesor i)
         {
             bool salida = false;
-            foreach(Profesor profesor in g.Profesores)
+            foreach(Profesor profesor in g.Instructores)
             {
                 if(profesor == i)
                 {
@@ -133,19 +173,37 @@ namespace Entidades
             return salida;
         }
 
+        /// <summary>
+        /// Operador que nos permite comparar una universidad con un alumno.
+        /// </summary>
+        /// <param name="g">Universidad a comparar.</param>
+        /// <param name="a">Alumno a comparar.</param>
+        /// <returns>True si el alumno no pertenece a la universidad, false en caso contrario.</returns>
+        /// <returns></returns>
         public static bool operator !=(Universidad g, Alumno a)
         {
             return !(g == a);
         }
 
+        /// <summary>
+        /// Operador que nos permite comparar una universidad con un profesor.
+        /// </summary>
+        /// <param name="g">Universidad a comparar.</param>
+        /// <param name="i">Profesor a comparar.</param>
+        /// <returns>True si el profesor no pertenece a la universidad, false en caso contrario.</returns>
         public static bool operator !=(Universidad g, Profesor i)
         {
             return !(g == i);
         }
 
+        /// Operador que devuelve un profesor que no pueda dar la clase.
+        /// </summary>
+        /// <param name="u">Universidad a comparar.</param>
+        /// <param name="clase">clase a comparar.</param>
+        /// <returns>Primer profesor invalido para dar la clase, de no existir lanza SinProfesorException.</returns>
         public static Profesor operator !=(Universidad u, EClases clase)
         {
-            foreach (Profesor p in u.Profesores)
+            foreach (Profesor p in u.Instructores)
             {
                 if (p != clase)
                     return p;
@@ -153,6 +211,12 @@ namespace Entidades
             throw new SinProfesorException();
         }
 
+        /// <summary>
+        /// Operador que permite agregar una clase a una universidad.
+        /// </summary>
+        /// <param name="g">Universidad.</param>
+        /// <param name="clase">Clase a agregar.</param>
+        /// <returns>Devuelve una universidad con la clase agregada, de no ser posible devuevlve el dato pasado por parametro.</returns>
         public static Universidad operator +(Universidad g, EClases clase)
         {
             Jornada j = new Jornada(clase, g == clase);
@@ -165,6 +229,12 @@ namespace Entidades
             return g;
         }
 
+        /// <summary>
+        /// Operador que permite agregar un alumno a una universidad.
+        /// </summary>
+        /// <param name="g">Universidad.</param>
+        /// <param name="a">Alumno a agregar.</param>
+        /// <returns>Devuelve una universidad con el alumno agregado, de no ser posible devuevlve el dato pasado por parametro.</returns>
         public static Universidad operator +(Universidad u, Alumno a)
         {
             if (u == a)
@@ -174,24 +244,43 @@ namespace Entidades
             return u;
         }
 
+        /// <summary>
+        /// Operador que permite agregar un profesor a una universidad.
+        /// </summary>
+        /// <param name="g">Universidad.</param>
+        /// <param name="i">profesor a agregar.</param>
+        /// <returns>Devuelve una universidad con el profesor agregada, de no ser posible devuevlve el dato pasado por parametro.</returns>
         public static Universidad operator +(Universidad u, Profesor i)
         {
             if (u != i)
-                u.Profesores.Add(i);
+                u.Instructores.Add(i);
             return u;
         }
 
+        /// <summary>
+        /// Devuelve todos los datos de la universidad.
+        /// </summary>
+        /// <returns>String con todos los datos.</returns>
         public override string ToString()
         {
             return this.MostrarDatos();
         }
 
+        /// <summary>
+        /// Guarda los datos en un archivo xml.
+        /// </summary>
+        /// <param name="uni">Universidad a guardar.</param>
+        /// <returns>True si se pudo guardar, false en caso contrario.</returns>
         public static bool Guardar(Universidad uni)
         {
             Xml<Universidad> xml = new Xml<Universidad>();
             return xml.Guardar(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Universidad.xml", uni);
         }
 
+        /// <summary>
+        /// Lee los datos de un archivo xml.
+        /// </summary>
+        /// <returns>True si se pudo leer, false en caso contrario.</returns>
         public static Universidad Leer()
         {
             Universidad salida;
