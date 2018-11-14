@@ -14,7 +14,7 @@ namespace EntidadesHechas
             bool salida = false;
             if (archivo != null)
             {
-                StreamWriter escritor = new StreamWriter(Environment.SpecialFolder.Desktop + "\\" + archivo, true);
+                StreamWriter escritor = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + archivo, true);
                 escritor.WriteLine(texto);
                 salida = true;
                 escritor.Close();

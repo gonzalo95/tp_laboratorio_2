@@ -109,9 +109,9 @@ namespace _20171123_SP_Cartas
                 correo += p;
                 ActualizarEstados();
             }
-            catch (TrackingIdRepetioException)
+            catch (TrackingIdRepetidoException exc)
             {
-                MessageBox.Show(string.Format("El tracking ID {0} ya figura en la lista de envios.", mtxtTrackingID.Text), "Paquete repetido", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                MessageBox.Show(exc.Message, "Paquete repetido", MessageBoxButtons.OK, MessageBoxIcon.Question);
             }
         }
 

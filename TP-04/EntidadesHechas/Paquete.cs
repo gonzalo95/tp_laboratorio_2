@@ -114,10 +114,14 @@ namespace EntidadesHechas
                 this.Estado += 1;
                 InformarEstado(this.Estado, EventArgs.Empty);
             }
-            new PaqueteDAO().Insertar(this);
+            try
+            {
+                new PaqueteDAO().Insertar(this);
+            }
+            catch (Exception) { }
         }
 
-        public delegate EEstado DelegadoEstado(object sender, EventArgs e);
+        public delegate void DelegadoEstado(object sender, EventArgs e);
 
         public event DelegadoEstado InformarEstado;
 

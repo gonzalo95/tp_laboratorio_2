@@ -8,7 +8,7 @@ using Excepciones;
 
 namespace EntidadesHechas
 {
-    public class Correo
+    public class Correo : IMostrar<List<Paquete>>
     {
         private List<Paquete> paquetes;
         private List<Thread> mockPaquetes;
@@ -46,7 +46,8 @@ namespace EntidadesHechas
         {
             foreach (Paquete paquete in c.Paquetes)
             {
-                if (paquete == p) throw new TrackingIdRepetioException("Paquete repetido");
+                if (paquete == p)
+                    throw new TrackingIdRepetidoException(string.Format("El tracking ID {0} ya figura en la lista de envios.", p.TrackingID));
             }
             c.Paquetes.Add(p);
             Thread hilo = new Thread(p.MockCicloDeVida);
@@ -67,8 +68,7 @@ namespace EntidadesHechas
             StringBuilder salida = new StringBuilder();
             foreach (Paquete p in l)
             {
-                salida.Append(p.ToString());
-                salida.AppendLine(p.Estado.ToString());
+                salida.AppendLine(string.Format("{0} para {1} ({2})", p.TrackingID, p.DireccionEntrega, p.Estado.ToString()));
             }
             return salida.ToString();
         }
