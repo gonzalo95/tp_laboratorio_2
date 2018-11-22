@@ -103,6 +103,14 @@ namespace _20171123_SP_Cartas
         }
 
         #region Alumno
+        /// <summary>
+        /// Informa por pantalla si hay algun problema con la base de datos.
+        /// </summary>
+        /// <param name="msj">string a mostrar</param>
+        private void MostrarPantallaErrorDB(string msj)
+        {
+            MessageBox.Show(msj, "Error en la base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
         /// <summary>
         /// Agrega un nuevo paquete con los datos ingresados.
@@ -115,16 +123,13 @@ namespace _20171123_SP_Cartas
             {
                 Paquete p = new Paquete(txtDireccion.Text, mtxtTrackingID.Text);
                 p.InformarEstado += paq_InformaEstado;
+                p.ErrorBD += MostrarPantallaErrorDB;
                 correo += p;
                 ActualizarEstados();
             }
             catch (TrackingIdRepetidoException exc)
             {
                 MessageBox.Show(exc.Message, "Paquete repetido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (OperationCanceledException exc)
-            {
-                MessageBox.Show(exc.Message, "Error en la base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

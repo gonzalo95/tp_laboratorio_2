@@ -29,7 +29,7 @@ namespace EntidadesHechas
             }
             catch (SqlException exc)
             {
-                throw new Exception(exc.Message, exc);
+                throw exc;
             }
         }
 

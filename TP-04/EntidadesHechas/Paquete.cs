@@ -119,9 +119,9 @@ namespace EntidadesHechas
             {
                 PaqueteDAO.Insertar(this);
             }
-            catch (Exception exc)
+            catch (SqlException)
             {
-                throw new OperationCanceledException(exc.Message, exc);
+                ErrorBD("Se ha producido un error al manipular la base de datos");
             }
         }
 
@@ -129,6 +129,9 @@ namespace EntidadesHechas
 
         public event DelegadoEstado InformarEstado;
 
+        public delegate void DelegadoBD(string msj);
+
+        public event DelegadoBD ErrorBD;
         #endregion
     }
 }
