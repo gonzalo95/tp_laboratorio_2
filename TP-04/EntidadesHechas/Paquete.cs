@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Data.SqlClient;
 
 namespace EntidadesHechas
 {
@@ -116,9 +117,12 @@ namespace EntidadesHechas
             }
             try
             {
-                new PaqueteDAO().Insertar(this);
+                PaqueteDAO.Insertar(this);
             }
-            catch (Exception) { }
+            catch (Exception exc)
+            {
+                throw new OperationCanceledException(exc.Message, exc);
+            }
         }
 
         public delegate void DelegadoEstado(object sender, EventArgs e);

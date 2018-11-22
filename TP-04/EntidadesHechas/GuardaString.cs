@@ -9,6 +9,13 @@ namespace EntidadesHechas
 {
     public static class GuardaString
     {
+        /// <summary>
+        /// Metodo de extension de la clase string.
+        /// Guarda el string en el archivo texto pasado por parametro.
+        /// </summary>
+        /// <param name="texto">String a guardar.</param>
+        /// <param name="archivo">Path del archivo.</param>
+        /// <returns></returns>
         public static bool Guardar(this string texto, string archivo)
         {
             bool salida = false;

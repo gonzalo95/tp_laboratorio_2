@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using EntidadesHechas;
 using Excepciones;
 using System.Threading;
+using System.Data.SqlClient;
 
 namespace _20171123_SP_Cartas
 {
@@ -17,6 +18,9 @@ namespace _20171123_SP_Cartas
     {
         Correo correo;
 
+        /// <summary>
+        /// Constructor del formulario.
+        /// </summary>
         public FrmPpal()
         {
             InitializeComponent();
@@ -100,6 +104,11 @@ namespace _20171123_SP_Cartas
 
         #region Alumno
 
+        /// <summary>
+        /// Agrega un nuevo paquete con los datos ingresados.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -111,7 +120,11 @@ namespace _20171123_SP_Cartas
             }
             catch (TrackingIdRepetidoException exc)
             {
-                MessageBox.Show(exc.Message, "Paquete repetido", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                MessageBox.Show(exc.Message, "Paquete repetido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (OperationCanceledException exc)
+            {
+                MessageBox.Show(exc.Message, "Error en la base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -44,16 +44,23 @@ namespace EntidadesHechas
         /// <returns></returns>
         public static Correo operator +(Correo c, Paquete p)
         {
-            foreach (Paquete paquete in c.Paquetes)
+            try
             {
-                if (paquete == p)
-                    throw new TrackingIdRepetidoException(string.Format("El tracking ID {0} ya figura en la lista de envios.", p.TrackingID));
+                foreach (Paquete paquete in c.Paquetes)
+                {
+                    if (paquete == p)
+                        throw new TrackingIdRepetidoException(string.Format("El tracking ID {0} ya figura en la lista de envios.", p.TrackingID));
+                }
+                c.Paquetes.Add(p);
+                Thread hilo = new Thread(p.MockCicloDeVida);
+                c.mockPaquetes.Add(hilo);
+                hilo.Start();
+                return c;
             }
-            c.Paquetes.Add(p);
-            Thread hilo = new Thread(p.MockCicloDeVida);
-            c.mockPaquetes.Add(hilo);
-            hilo.Start();
-            return c;
+            catch (OperationCanceledException exc)
+            {
+                throw exc;
+            }
         }
 
         /// <summary>

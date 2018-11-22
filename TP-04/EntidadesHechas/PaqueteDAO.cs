@@ -7,28 +7,41 @@ using System.Data.SqlClient;
 
 namespace EntidadesHechas
 {
-    public class PaqueteDAO
+    public static class PaqueteDAO
     {
-        public bool Insertar(Paquete p)
+        static SqlConnection conexion;
+        static SqlCommand comando;
+
+        /// <summary>
+        /// Agrega un paquete a la base de datos.
+        /// </summary>
+        /// <param name="p">Paquete a guardar.</param>
+        /// <returns></returns>
+        public static bool Insertar(Paquete p)
         {
             try
             {
-                SqlConnection conexion = new SqlConnection("Data Source=.;Initial Catalog=correo-sp-2017;Integrated Security=True");
-                SqlCommand comando = new SqlCommand();
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.Connection = conexion;
                 comando.CommandText = string.Format("INSERT INTO dbo.Paquetes (direccionEntrega, trackingId, alumno) VALUES ('{0}','{1}','Greco Gonzalo')", p.DireccionEntrega, p.TrackingID);
                 conexion.Open();
                 comando.ExecuteNonQuery();
                 conexion.Close();
                 return true;
             }
-            catch (Exception exc)
+            catch (SqlException exc)
             {
-                throw exc;
+                throw new Exception(exc.Message, exc);
             }
         }
 
-        public PaqueteDAO() { }
+        /// <summary>
+        /// Constructor estatico.
+        /// </summary>
+        static PaqueteDAO()
+        {
+            conexion = new SqlConnection("Data Source=.;Initial Catalog=correo-sp-2017;Integrated Security=True");
+            comando = new SqlCommand();
+            comando.CommandType = System.Data.CommandType.Text;
+            comando.Connection = conexion;
+        }
     }
 }
